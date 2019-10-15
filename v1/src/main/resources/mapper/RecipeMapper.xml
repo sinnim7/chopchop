@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chop.dao.RecipeDao">
+
+  <!-- 컬럼 이름과 자바 객체의 프로퍼티 이름을 연결한다. -->
+   <resultMap type="Recipe" id="RecipeMap">
+    <id column="recipe_id"         property="no"/>
+    <id column="member_id"         property="memberNo"/>
+    <result column="title"   property="title"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="view_count"   property="viewCount"/>
+    <result column="content"   property="content"/>
+    <result column="thumbnail"   property="thumbnail"/>
+    <result column="category"   property="category"/>
+    <result column="tag"   property="tag"/>
+    <result column="other_info"   property="otherInfo"/>
+    <result column="scrap"   property="scrap"/>
+  </resultMap>
+
+
+  <select id="findAll" resultMap="RecipeMap">
+  select 
+    recipe_id,
+    title,
+    content
+  from recipe 
+  
+  </select>
+  
+  
+  
+</mapper>
