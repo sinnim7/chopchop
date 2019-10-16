@@ -15,16 +15,18 @@
   
 
   <select id="findAll" resultMap="RecipeCommentMap">
+ 
   select 
     content,
-    created_date
-  from recipe_comment 
-  order by created_date
+    date_format(created_date, '%Y-%m-%d') created_date
+    from recipe_comment
+
   </select>
   
+  
   <insert id="insert" parameterType="RecipeComment">
-    insert into recipe_comment(comment)
-    values(#{comment}) 
+    insert into recipe_comment(content)
+    values(#{content}) 
   </insert>
   
   

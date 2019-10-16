@@ -21,7 +21,7 @@
 <body>
 
 <h1>레시피 상세</h1>
-
+<form action="update" method="post">
         
             
               <br>
@@ -57,7 +57,7 @@
 
             <button>변경</button>
             <a href='delete?no=${recipe.no}'>삭제</a>
-    
+    </form>
 
 </body>
 
