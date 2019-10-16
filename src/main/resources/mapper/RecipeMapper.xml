@@ -18,6 +18,8 @@
     <result column="other_info"   property="otherInfo"/>
     <result column="scrap"   property="scrap"/>
   </resultMap>
+  
+
 
 
   <select id="findAll" resultMap="RecipeMap">
@@ -26,8 +28,65 @@
     title,
     content
   from recipe 
-  
+  order by recipe_id
   </select>
+  
+  <insert id="insert" parameterType="Recipe">
+    insert into recipe(title)
+    values(#{title}) 
+  </insert>
+  
+  <select id="findBy" parameterType="int" resultMap="RecipeMap">
+    select * from recipe
+    where recipe_id=#{haha} 
+  </select>
+  
+  <update id="increaseViewCount" parameterType="int">
+    update recipe set
+      view_count = view_count + 1
+    where recipe_id=#{value}
+  </update>
+  
+  <update id="update" parameterType="Recipe">
+    update recipe
+    <set>
+      <if test="title != null">title=#{title},</if>
+      <if test="content != null">content=#{content},</if> 
+      <if test="thumbnail != null">thumbnail=(#{thumbnail}), </if>
+      <if test="category != null">category=#{category},</if>
+      <if test="tag != null">tag=#{tag},</if>
+      <if test="otherInfo != null">other_info=#{otherInfo},</if>
+      <if test="scrap > 0">scrap=#{scrap}</if>
+    </set>
+    where recipe_id=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+     delete from recipe 
+   where recipe_id=#{value}
+  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

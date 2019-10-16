@@ -10,25 +10,25 @@
     border: 10px solid black;
   }
 </style>
-<title>레시피 목록</title>
+<title>댓글 목록</title>
 </head>
 <body>
 
 <div id='recipemain'>
-<h1>레시피 목록</h1>
-<a href='form'>레시피 등록</a>
+<h1>댓글 목록</h1>
+<a href='form'>댓글 등록</a>
 <table class='table table-hover'>
 
 <tr>
-  <th>레시피번호</th>
-  <th>제목</th>
-  <th>썸네일</th>
+  <th>댓글번호</th>
+  <th>내용</th>
+  <th>시간</th>
 </tr>
-<c:forEach items="${recipes}" var="recipe">
+<c:forEach items="${recipeComments}" var="recipeComment">
   <tr>
-    <td>${recipe.no}</td>
-    <td><a href='detail?no=${recipe.no}'>${recipe.title}</a></td>
-    <td>${recipe.thumbnail}</td>
+    <td>${recipeComment.no}</td>
+    <td>${recipeComment.createdDate}</td>
+    <td><a href='detail?no=${recipeComment.no}'>${recipeComment.content}</a></td>
   </tr>
 </c:forEach>
 </table>

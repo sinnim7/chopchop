@@ -7,15 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import chop.domain.Recipe;
-import chop.service.RecipeService;
+import chop.domain.RecipeComment;
+import chop.service.RecipeCommentService;
 
 @Controller
-@RequestMapping("/recipe")
-public class RecipeController {
+@RequestMapping("/recipe/comment")
+public class RecipeCommentController {
 
   @Resource
-  private RecipeService recipeService;
+  private RecipeCommentService recipeCommentService;
   
   @GetMapping("form")
   public void form() {
@@ -24,33 +24,27 @@ public class RecipeController {
   @GetMapping("list")
   public void list(Model model) 
       throws Exception {
-    List<Recipe> recipes = recipeService.list();
-    model.addAttribute("recipes", recipes);
+    List<RecipeComment> recipeComments = recipeCommentService.list();
+    model.addAttribute("recipeComments", recipeComments);
   }
   
   @PostMapping("add")
-  public String add(Recipe recipe) throws Exception {
-    recipeService.insert(recipe);
+  public String add(RecipeComment recipeComment) throws Exception {
+    recipeCommentService.insert(recipeComment);
     return "redirect:list";
   }
   
   @GetMapping("delete")
   public String delete(int no) throws Exception {
-    recipeService.delete(no);
+    recipeCommentService.delete(no);
     return "redirect:list";
   }
   
-  @GetMapping("detail")
-  public void detail(Model model, int no) throws Exception {
-    Recipe recipe = recipeService.get(no);
-    model.addAttribute("recipe", recipe);
-  }
-  
-  
+   
   @PostMapping("update")
-  public String update(Recipe recipe) 
+  public String update(RecipeComment recipeComment) 
       throws Exception {
-    recipeService.update(recipe);
+    recipeCommentService.update(recipeComment);
     return "redirect:list";
   }
   

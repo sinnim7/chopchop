@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chop.dao.RecipeCommentDao">
+
+  <!-- 컬럼 이름과 자바 객체의 프로퍼티 이름을 연결한다. -->
+   <resultMap type="RecipeComment" id="RecipeCommentMap">
+    <id column="comment_id"         property="no"/>
+    <id column="recipe_id"         property="recipeNo"/>
+    <id column="member_id"         property="memberNo"/>
+    <result column="content"   property="content"/>
+    <result column="created_date" property="createdDate"/>
+  </resultMap>
+  
+
+  <select id="findAll" resultMap="RecipeCommentMap">
+  select 
+    content,
+    created_date
+  from recipe_comment 
+  order by created_date
+  </select>
+  
+  <insert id="insert" parameterType="RecipeComment">
+    insert into recipe_comment(comment)
+    values(#{comment}) 
+  </insert>
+  
+  
+  <update id="update" parameterType="RecipeComment">
+    update recipe_comment
+    <set>
+      <if test="content != null">content=#{content},</if> 
+    </set>
+    where content_id=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+     delete from recipe_comment 
+   where content_id=#{value}
+  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>
