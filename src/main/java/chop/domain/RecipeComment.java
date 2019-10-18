@@ -1,7 +1,6 @@
 package chop.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class RecipeComment implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -9,10 +8,23 @@ public class RecipeComment implements Serializable {
   private int no;
   private int recipeNo;
   private int memberNo;
-  private Date createdDate;
+  private String createdDate;
   private String content;
+  private Member member;
   
   
+  
+  @Override
+  public String toString() {
+    return "RecipeComment [no=" + no + ", recipeNo=" + recipeNo + ", memberNo=" + memberNo
+        + ", createdDate=" + createdDate + ", content=" + content + ", member=" + member + "]";
+  }
+  public Member getMember() {
+    return member;
+  }
+  public void setMember(Member member) {
+    this.member = member;
+  }
   public int getNo() {
     return no;
   }
@@ -31,10 +43,11 @@ public class RecipeComment implements Serializable {
   public void setMemberNo(int memberNo) {
     this.memberNo = memberNo;
   }
-  public Date getCreatedDate() {
+  
+  public String getCreatedDate() {
     return createdDate;
   }
-  public void setCreatedDate(Date createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
   public String getContent() {

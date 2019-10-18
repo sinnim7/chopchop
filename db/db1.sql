@@ -90,7 +90,7 @@ CREATE TABLE member (
    post_no        VARCHAR(255) NULL,     -- 우편번호
    base_address   VARCHAR(255) NULL,     -- 기본주소
    detail_address VARCHAR(255) NULL,     -- 상세주소
-   grade          INTEGER      NOT NULL  -- 등급
+   grade          INTEGER      NOT NULL DEFAULT 1 -- 등급
 );
 
 -- 회원
@@ -114,9 +114,9 @@ ALTER TABLE member
 CREATE TABLE pet (
    pet_id       INTEGER      NOT NULL, -- 반려동물 번호
    member_id    INTEGER      NOT NULL, -- 회원 번호
-   breed_id     INTEGER      NOT NULL, -- 동물품종번호
+   breed_id     INTEGER      NULL,     -- 동물품종번호
    name         VARCHAR(50)  NOT NULL, -- 이름
-   created_date CHAR(10)     NOT NULL, -- 등록일
+   created_date DATE         NOT NULL DEFAULT now(), -- 등록일
    register_no  VARCHAR(255) NULL      -- 등록번호
 );
 
@@ -143,7 +143,8 @@ CREATE TABLE product (
    price      INTEGER     NOT NULL, -- 가격
    detail     TEXT        NOT NULL, -- 상세
    stock      INTEGER     NOT NULL, -- 재고
-   discount   INTEGER     NOT NULL  -- 할인률
+   discount   INTEGER     NOT NULL, -- 할인률
+   view_count INTEGER     NOT NULL DEFAULT 0 -- 조회수
 );
 
 -- 상품
@@ -160,9 +161,9 @@ ALTER TABLE product
 CREATE TABLE recipe (
    recipe_id    INTEGER      NOT NULL, -- 레시피 번호
    member_id    INTEGER      NOT NULL, -- 회원번호
-   title        VARCHAR(8)   NOT NULL, -- 이름
-   created_date CHAR(10)     NOT NULL, -- 작성일
-   view_count   INTEGER      NOT NULL, -- 조회수
+   title        VARCHAR(255) NOT NULL, -- 이름
+   created_date DATE         NOT NULL DEFAULT now(), -- 작성일
+   view_count   INTEGER      NOT NULL DEFAULT 0, -- 조회수
    content      TEXT         NOT NULL, -- 내용
    thumbnail    VARCHAR(50)  NOT NULL, -- 대표사진
    category     VARCHAR(255) NOT NULL, -- 카테고리
@@ -183,11 +184,11 @@ ALTER TABLE recipe
 
 -- 레시피댓글
 CREATE TABLE recipe_comment (
-   comment_id   INTEGER  NOT NULL, -- 레시피댓글번호
-   recipe_id    INTEGER  NOT NULL, -- 레시피 번호
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   content      TEXT     NOT NULL, -- 댓글 내용
-   created_date CHAR(10) NOT NULL  -- 작성일
+   comment_id   INTEGER NOT NULL, -- 레시피댓글번호
+   recipe_id    INTEGER NOT NULL, -- 레시피 번호
+   member_id    INTEGER NOT NULL, -- 회원번호
+   content      TEXT    NOT NULL, -- 댓글 내용
+   created_date DATE    NOT NULL DEFAULT now() -- 작성일
 );
 
 -- 레시피댓글
@@ -202,11 +203,11 @@ ALTER TABLE recipe_comment
 
 -- 후기
 CREATE TABLE review (
-   review_id    INTEGER  NOT NULL, -- 후기번호
-   recipe_id    INTEGER  NOT NULL, -- 레시피 번호
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   content      TEXT     NOT NULL, -- 내용
-   created_date CHAR(10) NOT NULL  -- 작성일
+   review_id    INTEGER NOT NULL, -- 후기번호
+   recipe_id    INTEGER NOT NULL, -- 레시피 번호
+   member_id    INTEGER NOT NULL, -- 회원번호
+   content      TEXT    NOT NULL, -- 내용
+   created_date DATE    NOT NULL DEFAULT now() -- 작성일
 );
 
 -- 후기
@@ -221,9 +222,9 @@ ALTER TABLE review
 
 -- 즐겨찾기
 CREATE TABLE bookmark (
-   recipe_id    INTEGER  NOT NULL, -- 레시피 번호
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   created_date CHAR(10) NOT NULL  -- 등록일
+   recipe_id    INTEGER NOT NULL, -- 레시피 번호
+   member_id    INTEGER NOT NULL, -- 회원번호
+   created_date DATE    NOT NULL DEFAULT now() -- 등록일
 );
 
 -- 즐겨찾기
@@ -239,7 +240,8 @@ CREATE TABLE notice (
    notice_id    INTEGER     NOT NULL, -- 공지번호
    title        VARCHAR(50) NOT NULL, -- 공지제목
    content      TEXT        NOT NULL, -- 공지내용
-   created_date CHAR(10)    NOT NULL  -- 작성일
+   created_date DATE        NOT NULL DEFAULT now(), -- 작성일
+   view_count   INTEGER     NOT NULL DEFAULT 0 -- 조회수
 );
 
 -- 공지
@@ -257,9 +259,10 @@ CREATE TABLE event (
    event_id     INTEGER     NOT NULL, -- 이벤트 번호
    title        VARCHAR(50) NOT NULL, -- 이벤트제목
    content      TEXT        NOT NULL, -- 이벤트내용
-   start_date   CHAR(10)    NOT NULL, -- 시작일
-   end_date     CHAR(10)    NULL,     -- 종료일
-   created_date CHAR(10)    NOT NULL  -- 작성일
+   start_date   CHAR(8)     NOT NULL, -- 시작일
+   end_date     CHAR(8)     NULL,     -- 종료일
+   created_date DATE        NOT NULL DEFAULT now(), -- 작성일
+   view_count   INTEGER     NOT NULL DEFAULT 0 -- 조회수
 );
 
 -- 이벤트
@@ -275,10 +278,10 @@ ALTER TABLE event
 -- 레시피랭킹
 CREATE TABLE recipe_ranking (
    recipe_raking_id INTEGER NOT NULL, -- 레시피랭킹번호
-   date             CHAR(6) NOT NULL, -- 년월
+   recipe_id        INTEGER NOT NULL, -- 레시피 번호
+   date             DATE    NOT NULL, -- 년월
    week             INTEGER NOT NULL, -- 주차
-   rank             INTEGER NOT NULL, -- 등수
-   recipe_id        INTEGER NOT NULL  -- 레시피 번호
+   rank             INTEGER NOT NULL  -- 등수
 );
 
 -- 레시피랭킹
@@ -310,11 +313,11 @@ ALTER TABLE recipe_ranking
 
 -- 찹톡
 CREATE TABLE gallery (
-   gallery_id   INTEGER  NOT NULL, -- 찹톡 번호
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   content      TEXT     NOT NULL, -- 내용
-   view_count   INTEGER  NOT NULL, -- 조회수
-   created_date CHAR(10) NOT NULL  -- 작성일
+   gallery_id   INTEGER NOT NULL, -- 찹톡 번호
+   member_id    INTEGER NOT NULL, -- 회원번호
+   content      TEXT    NOT NULL, -- 내용
+   view_count   INTEGER NOT NULL DEFAULT 0, -- 조회수
+   created_date DATE    NOT NULL DEFAULT now() -- 작성일
 );
 
 -- 찹톡
@@ -329,10 +332,10 @@ ALTER TABLE gallery
 
 -- 장바구니
 CREATE TABLE cart (
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   product_id   INTEGER  NOT NULL, -- 상품 번호
-   quantity     INTEGER  NOT NULL, -- 수량
-   created_date CHAR(10) NOT NULL  -- 등록일
+   member_id    INTEGER NOT NULL, -- 회원번호
+   product_id   INTEGER NOT NULL, -- 상품 번호
+   quantity     INTEGER NOT NULL DEFAULT 1, -- 수량
+   created_date DATE    NOT NULL DEFAULT now() -- 등록일
 );
 
 -- 장바구니
@@ -350,7 +353,7 @@ CREATE TABLE store_order (
    post_no        VARCHAR(255) NOT NULL, -- 배송지우편번호
    base_address   VARCHAR(255) NOT NULL, -- 배송지기본주소
    detail_address VARCHAR(255) NOT NULL, -- 배송지상세주소
-   payment_date   CHAR(10)     NOT NULL, -- 주문일
+   payment_date   DATE         NOT NULL DEFAULT now(), -- 주문일
    payment_method VARCHAR(255) NOT NULL, -- 결제수단
    ship_date      VARCHAR(255) NOT NULL, -- 상태
    invoice        VARCHAR(255) NULL      -- 운송장번호
@@ -388,9 +391,9 @@ ALTER TABLE subscriptior
 
 -- 이벤트사진
 CREATE TABLE photo (
-   photo_id INTEGER     NOT NULL, -- 이벤트사진번호
-   event_id INTEGER     NOT NULL, -- 이벤트 번호
-   title    VARCHAR(50) NOT NULL  -- 이름
+   photo_id  INTEGER     NOT NULL, -- 이벤트사진번호
+   event_id  INTEGER     NOT NULL, -- 이벤트 번호
+   file_path VARCHAR(50) NOT NULL  -- 파일 경로
 );
 
 -- 이벤트사진
@@ -407,7 +410,7 @@ ALTER TABLE photo
 CREATE TABLE review_photo (
    photo_id  INTEGER     NOT NULL, -- 사진 번호
    review_id INTEGER     NOT NULL, -- 후기번호
-   title     VARCHAR(50) NOT NULL  -- 이름
+   file_path VARCHAR(50) NOT NULL  -- 파일 경로
 );
 
 -- 후기사진
@@ -422,11 +425,11 @@ ALTER TABLE review_photo
 
 -- 후기댓글
 CREATE TABLE review_comment (
-   comment_id   INTEGER  NOT NULL, -- 후기댓글번호
-   review_id    INTEGER  NOT NULL, -- 후기번호
-   member_id    INTEGER  NOT NULL, -- 회원번호
-   content      TEXT     NOT NULL, -- 댓글 내용
-   created_date CHAR(10) NOT NULL  -- 작성일
+   comment_id   INTEGER NOT NULL, -- 후기댓글번호
+   review_id    INTEGER NOT NULL, -- 후기번호
+   member_id    INTEGER NOT NULL, -- 회원번호
+   content      TEXT    NOT NULL, -- 댓글 내용
+   created_date DATE    NOT NULL DEFAULT now() -- 작성일
 );
 
 -- 후기댓글
@@ -443,7 +446,7 @@ ALTER TABLE review_comment
 CREATE TABLE gallery_photo (
    photo_id   INTEGER     NOT NULL, -- 찹톡사진번호
    gallery_id INTEGER     NOT NULL, -- 찹톡 번호
-   title      VARCHAR(50) NOT NULL  -- 이름
+   file_path  VARCHAR(50) NOT NULL  -- 파일 경로
 );
 
 -- 찹톡사진
@@ -459,7 +462,7 @@ ALTER TABLE gallery_photo
 -- 동물분류
 CREATE TABLE category (
    category_id INTEGER      NOT NULL, -- 동물분류번호
-   title       VARCHAR(255) NOT NULL  -- 분류명
+   category    VARCHAR(255) NOT NULL  -- 분류명
 );
 
 -- 동물분류
@@ -475,7 +478,7 @@ ALTER TABLE category
 -- 동물품종
 CREATE TABLE breed (
    breed_id    INTEGER      NOT NULL, -- 동물품종번호
-   title       VARCHAR(255) NOT NULL, -- 품종명
+   breed       VARCHAR(255) NOT NULL, -- 품종명
    category_id INTEGER      NOT NULL  -- 동물분류번호
 );
 
@@ -493,8 +496,8 @@ ALTER TABLE breed
 CREATE TABLE pet_photo (
    photo_id     INTEGER     NOT NULL, -- 반려동물사진번호
    pet_id       INTEGER     NOT NULL, -- 반려동물 번호
-   title        VARCHAR(50) NOT NULL, -- 이름
-   created_date CHAR(10)    NOT NULL  -- 등록일
+   file_path    VARCHAR(50) NOT NULL, -- 파일 경로
+   created_date DATE        NOT NULL DEFAULT now() -- 등록일
 );
 
 -- 반려동물사진
@@ -526,10 +529,10 @@ ALTER TABLE order_product
 -- 회원랭킹
 CREATE TABLE member_ranking (
    member_raking_id INTEGER NOT NULL, -- 회원랭킹번호
-   date             CHAR(6) NOT NULL, -- 년월
+   member_id        INTEGER NOT NULL, -- 회원번호
+   date             DATE    NOT NULL, -- 년월
    week             INTEGER NOT NULL, -- 주차
-   rank             INTEGER NOT NULL, -- 등수
-   member_id        INTEGER NOT NULL  -- 회원번호
+   rank             INTEGER NOT NULL  -- 등수
 );
 
 -- 회원랭킹
@@ -563,8 +566,8 @@ ALTER TABLE member_ranking
 CREATE TABLE cooking (
    cooking_id INTEGER     NOT NULL, -- 조리과정번호
    recipe_id  INTEGER     NOT NULL, -- 레시피 번호
-   COL        INTEGER     NOT NULL, -- 조리순서
-   photo      VARCHAR(50) NOT NULL, -- 사진
+   process    INTEGER     NOT NULL, -- 조리순서
+   file_path  VARCHAR(50) NOT NULL, -- 파일 경로
    content    TEXT        NOT NULL  -- 내용
 );
 
@@ -618,8 +621,8 @@ ALTER TABLE recipe_like
 -- 상품사진
 CREATE TABLE store_photo (
    photo_id   INTEGER     NOT NULL, -- 찹톡사진번호
-   product_id INTEGER     NULL,     -- 상품 번호
-   title      VARCHAR(50) NOT NULL  -- 이름
+   product_id INTEGER     NOT NULL, -- 상품 번호
+   file_path  VARCHAR(50) NOT NULL  -- 파일 경로
 );
 
 -- 상품사진
@@ -628,6 +631,9 @@ ALTER TABLE store_photo
       PRIMARY KEY (
          photo_id -- 찹톡사진번호
       );
+
+ALTER TABLE store_photo
+   MODIFY COLUMN photo_id INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 반려동물 정보
 ALTER TABLE pet

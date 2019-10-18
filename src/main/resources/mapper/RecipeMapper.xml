@@ -26,15 +26,20 @@
   select 
     recipe_id,
     title,
-    content
+    thumbnail
   from recipe 
   order by recipe_id
   </select>
   
-  <insert id="insert" parameterType="Recipe">
-    insert into recipe(title)
-    values(#{title}) 
+  <insert id="insert" parameterType="Recipe"
+  useGeneratedKeys="true"
+          keyColumn="recipe_id"
+          keyProperty="no">
+    insert into recipe(title, content, category, other_info, thumbnail, tag, member_id, created_date, view_count)
+    values(#{title}, #{content}, #{category}, #{otherInfo}, #{thumbnail}, #{tag}, #{memberNo}, #{createdDate}, #{viewCount}) 
   </insert>
+  
+  
   
   <select id="findBy" parameterType="int" resultMap="RecipeMap">
     select * from recipe
@@ -52,7 +57,7 @@
     <set>
       <if test="title != null">title=#{title},</if>
       <if test="content != null">content=#{content},</if> 
-      <if test="thumbnail != null">thumbnail=(#{thumbnail}), </if>
+      <if test="thumbnail != null">thumbnail=#{thumbnail}, </if>
       <if test="category != null">category=#{category},</if>
       <if test="tag != null">tag=#{tag},</if>
       <if test="otherInfo != null">other_info=#{otherInfo},</if>

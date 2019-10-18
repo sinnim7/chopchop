@@ -7,15 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import chop.domain.RecipeComment;
-import chop.service.RecipeCommentService;
+import chop.domain.Member;
+import chop.service.MemberService;
 
 @Controller
-@RequestMapping("/recipe/comment")
-public class RecipeCommentController {
+@RequestMapping("/member")
+public class MemberController {
 
   @Resource
-  private RecipeCommentService recipeCommentService;
+  private MemberService memberService;
   
   @GetMapping("form")
   public void form() {
@@ -24,33 +24,33 @@ public class RecipeCommentController {
   @GetMapping("list")
   public void list(Model model) 
       throws Exception {
-    List<RecipeComment> recipeComments = recipeCommentService.list();
-    model.addAttribute("recipeComments", recipeComments);
+    List<Member> members = memberService.list();
+    model.addAttribute("members", members);
   }
   
   @PostMapping("add")
-  public String add(RecipeComment recipeComment) throws Exception {
-    recipeCommentService.insert(recipeComment);
+  public String add(Member member) throws Exception {
+    memberService.insert(member);
     return "redirect:list";
   }
   
   @GetMapping("delete")
   public String delete(int no) throws Exception {
-    recipeCommentService.delete(no);
+    memberService.delete(no);
     return "redirect:list";
   }
   
   @GetMapping("detail")
   public void detail(Model model, int no) throws Exception {
-    RecipeComment recipeComment = recipeCommentService.get(no);
-    model.addAttribute("recipeComment", recipeComment);
+    Member member = memberService.get(no);
+    model.addAttribute("member", member);
   }
   
-   
+  
   @PostMapping("update")
-  public String update(RecipeComment recipeComment) 
+  public String update(Member member) 
       throws Exception {
-    recipeCommentService.update(recipeComment);
+    memberService.update(member);
     return "redirect:list";
   }
   

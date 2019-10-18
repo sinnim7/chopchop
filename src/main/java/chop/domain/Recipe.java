@@ -1,7 +1,6 @@
 package chop.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class Recipe implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -10,7 +9,8 @@ public class Recipe implements Serializable {
   private int no;
   private int memberNo;
   private String title;
-  private Date createdDate;
+  private String createdDate;
+  
   private int viewCount;
   private String content;
   private String thumbnail;
@@ -38,12 +38,14 @@ public class Recipe implements Serializable {
   public void setTitle(String title) {
     this.title = title;
   }
-  public Date getCreatedDate() {
+  
+  public String getCreatedDate() {
     return createdDate;
   }
-  public void setCreatedDate(Date createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
+
   public int getViewCount() {
     return viewCount;
   }

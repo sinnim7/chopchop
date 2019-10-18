@@ -10,6 +10,7 @@ import chop.domain.RecipeComment;
 //
 public interface RecipeCommentService {
   List<RecipeComment> list() throws Exception;
+  RecipeComment get(int no) throws Exception;
   void insert(RecipeComment recipeComment) throws Exception;
   void update(RecipeComment recipeComment) throws Exception;
   void delete(int no) throws Exception;

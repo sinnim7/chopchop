@@ -28,7 +28,14 @@ public class DefaultRecipeCommentService implements RecipeCommentService {
     }
   }
 
-  
+  @Override
+  public RecipeComment get(int no) throws Exception {
+    RecipeComment recipeComment = recipeCommentDao.findBy(no);
+    if (recipeComment == null) {
+      throw new Exception("해당 번호의 데이터가 없습니다!");
+    } 
+    return recipeComment;
+  }
 
   @Override
   public List<RecipeComment> list() throws Exception {
