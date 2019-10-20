@@ -7,7 +7,7 @@ import chop.dao.RecipeCommentDao;
 import chop.domain.RecipeComment;
 import chop.service.RecipeCommentService;
 
-// BoardService 기본 구현체 
+// RecipeCommentService 기본 구현체 
 //
 @Service
 public class DefaultRecipeCommentService implements RecipeCommentService {

@@ -19,7 +19,6 @@
   
 
 
-
 <select id="findAll" resultMap="RecipeCommentMap">
   select 
     m.nickname,
@@ -53,7 +52,7 @@
   </insert>
   
   
-  <update id="update" parameterType="RecipeComment">
+ <update id="update" parameterType="RecipeComment">
     update recipe_comment set
      content=#{content} 
     where comment_id=#{no}
@@ -64,29 +63,5 @@
    where comment_id=#{value}
    
   </delete>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 </mapper>

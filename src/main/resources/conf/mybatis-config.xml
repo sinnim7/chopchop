@@ -39,7 +39,6 @@
     <!-- SQL 문이 저장된 파일 -->
     <mapper resource="/mapper/RecipeMapper.xml"/>
     <mapper resource="/mapper/RecipeCommentMapper.xml"/>
-    <mapper resource="/mapper/MemberMapper.xml"/>
     <!-- 
     <mapper resource="/mapper/MemberMapper.xml"/>
     <mapper resource="/mapper/LessonMapper.xml"/>

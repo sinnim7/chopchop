@@ -7,7 +7,7 @@ import chop.dao.RecipeDao;
 import chop.domain.Recipe;
 import chop.service.RecipeService;
 
-// BoardService 기본 구현체 
+// RecipeService 기본 구현체 
 //
 @Service
 public class DefaultRecipeService implements RecipeService {
@@ -30,12 +30,12 @@ public class DefaultRecipeService implements RecipeService {
 
   @Override
   public Recipe get(int no) throws Exception {
-    Recipe board = recipeDao.findBy(no);
-    if (board == null) {
+    Recipe recipe = recipeDao.findBy(no);
+    if (recipe == null) {
       throw new Exception("해당 번호의 데이터가 없습니다!");
     } 
     recipeDao.increaseViewCount(no);
-    return board;
+    return recipe;
   }
 
   @Override

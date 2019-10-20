@@ -6,12 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/style.css">
-<style>
-
-
-
-</style>
 <title>댓글 목록</title>
 </head>
 <body>

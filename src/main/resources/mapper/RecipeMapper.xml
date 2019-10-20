@@ -19,7 +19,9 @@
     <result column="scrap"   property="scrap"/>
   </resultMap>
   
-
+<sql id="where1">
+    where recipe_id=#{no}
+  </sql>
 
 
   <select id="findAll" resultMap="RecipeMap">
@@ -36,7 +38,7 @@
           keyColumn="recipe_id"
           keyProperty="no">
     insert into recipe(title, content, category, other_info, thumbnail, tag, member_id, created_date, view_count)
-    values(#{title}, #{content}, #{category}, #{otherInfo}, #{thumbnail}, #{tag}, #{memberNo}, #{createdDate}, #{viewCount}) 
+    values(#{title}, #{content}, #{category}, #{otherInfo}, #{thumbnail}, #{tag}, #{memberNo},now(), #{viewCount}) 
   </insert>
   
   
@@ -63,7 +65,7 @@
       <if test="otherInfo != null">other_info=#{otherInfo},</if>
       <if test="scrap > 0">scrap=#{scrap}</if>
     </set>
-    where recipe_id=#{no}
+    <include refid="where1"/>
   </update>
   
   <delete id="delete" parameterType="int">
