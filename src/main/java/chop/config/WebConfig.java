@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
     mr.setMaxUploadSizePerFile(5000000);
     return mr; 
   }
-  
+             // 
   //기본 ViewResolver 대체할 때,
   @Bean
   public ViewResolver viewResolver() {
