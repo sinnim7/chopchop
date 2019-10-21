@@ -29,6 +29,32 @@
             <a href='delete?no=${recipe.no}'>삭제</a>
     </form>
 </div>
+
+
+
+<div id='comment'>
+<table class='table table-hover'>
+<h2>댓글</h2>
+       <textarea name='content' rows='5' cols='50'>댓글입력</textarea>
+       <button><a href='http://localhost:8888/app/recipe/comment/form'>등록</button><br>
+<tr>
+  <th>댓글번호</th>
+  <th>내용</th>
+  <th>작성자</th>
+  <th>작성일</th>
+</tr>
+<c:forEach items="${recipeComments}" var="recipeComment">
+  <tr>
+    <td>${recipeComment.no}</td>
+    <td><a href='detail?no=${recipeComment.no}'>${recipeComment.content}</a></td>
+    <td>${recipeComment.member.nickname}</td>
+    <td>${recipeComment.createdDate}</td>
+    
+  </tr>
+</c:forEach>
+</table>
+</div>
+        
 </body>
 
 </html>

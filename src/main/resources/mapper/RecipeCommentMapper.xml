@@ -17,6 +17,9 @@
   </resultMap>
   
   
+  
+  
+  
 
 
 <select id="findAll" resultMap="RecipeCommentMap">
