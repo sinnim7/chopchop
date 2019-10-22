@@ -11,7 +11,7 @@ import chop.domain.RecipeComment;
 import chop.service.RecipeCommentService;
 
 @Controller
-@RequestMapping("/recipe/comment")
+@RequestMapping("/comment")
 public class RecipeCommentController {
 
   @Resource

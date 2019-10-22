@@ -17,29 +17,29 @@
     <result column="tag"   property="tag"/>
     <result column="other_info"   property="otherInfo"/>
     <result column="scrap"   property="scrap"/>
-    <association property="member" javaType="Member">
-      <id column="member_id"      property="no"/>
-      <result column="nickname"   property="nickname"/>
-    </association>
+    <result column="nickname" property="nickname"/>
+    <result column="comment_content"   property="commentContent"/>
+    <result column="comment_created_date" property="commentCreatedDate"/>
+   
   </resultMap>
   
   
-  
-  
+    
+    
   
   
   <select id="findAll" resultMap="RecipeMap">
   
   select 
     m.nickname,
-    r.recipe_id,
-    r.member_id,
-    r.title,
-    r.content,
-    r.created_date
-  from recipe as r
-     join member as m on r.member_id = m.member_id
-  order by recipe_id
+    rc.comment_id,
+    rc.recipe_id,
+    rc.member_id,
+    rc.comment_content,
+    rc.comment_created_date
+  from recipe_comment as rc
+     join member as m on rc.member_id = m.member_id
+  order by comment_id
   </select>
   
   
@@ -73,7 +73,16 @@
   
   
   <select id="findBy" parameterType="int" resultMap="RecipeMap">
-    select * from recipe
+    select
+m.nickname,
+rc.comment_id,
+rc.recipe_id,
+rc.member_id,
+rc.comment_content,
+rc.comment_created_date
+from recipe_comment as rc
+join member as m on rc.member_id = m.member_id and recipe_id = recipe_id
+order by comment_id
     where recipe_id=#{haha} 
   </select>
   

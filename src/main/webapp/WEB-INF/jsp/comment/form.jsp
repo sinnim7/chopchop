@@ -22,7 +22,7 @@
   회원번호: <input type='text' name='memberNo'><br>
   레시피번호: <input type='text' name='recipeNo'><br>
   내용 : <textarea name='content' rows='5' cols='50'></textarea><br>
-  작성일: <input type='text' name='createdDate'><br>
+  작성일: <input type='text' name='commentCreatedDate'><br>
   <button>등록</button>
 </form>
 </div>

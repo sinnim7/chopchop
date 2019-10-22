@@ -16,8 +16,8 @@
      댓글번호:     <input type='text' name='recipeNo' value='${recipeComment.no}' readonly><br>
     레시피번호: <input type='text' name='recipeNo' value='${recipeComment.recipeNo}' readonly><br>
     회원번호: <input type='text' name='memberNo' value='${recipeComment.memberNo}' readonly><br>
-    내용 : <textarea name='contents' rows='5'  cols='50'>${recipeComment.content}</textarea><br>
-    작성일:${recipeComment.createdDate}<br>
+    내용 : <textarea name='contents' rows='5'  cols='50'>${recipeComment.commentContent}</textarea><br>
+    작성일:${recipeComment.commentCreatedDate}<br>
             
             <button>변경</button>
             <a href='delete?no=${recipeComment.no}'>삭제</a>

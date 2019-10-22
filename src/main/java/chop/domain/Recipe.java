@@ -2,6 +2,7 @@ package chop.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class Recipe implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -19,10 +20,56 @@ public class Recipe implements Serializable {
   private String otherInfo;
   private int scrap;
   private Member member;
+  private List<RecipeComment> comments;
+  private String nickname;
+  private String commentContent;
+  private Date commentCreatedDate;
   
   
   
+
+
+  public Date getCommentCreatedDate() {
+    return commentCreatedDate;
+  }
+
+
+  public void setCommentCreatedDate(Date commentCreatedDate) {
+    this.commentCreatedDate = commentCreatedDate;
+  }
+
+
   
+
+
+  public String getCommentContent() {
+    return commentContent;
+  }
+
+
+  public void setCommentContent(String commentContent) {
+    this.commentContent = commentContent;
+  }
+
+
+  public String getNickname() {
+    return nickname;
+  }
+
+
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+
+  public List<RecipeComment> getComments() {
+    return comments;
+  }
+
+
+  public void setComments(List<RecipeComment> comments) {
+    this.comments = comments;
+  }
 
 
   public Member getMember() {

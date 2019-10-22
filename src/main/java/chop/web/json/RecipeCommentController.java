@@ -14,7 +14,7 @@ import chop.service.RecipeCommentService;
 // => 리턴 값은 내부에 설정된 HttpMessageConverter에 의해 JSON 문자열로 변환되어 보내진다.
 //
 @RestController("json.RecipeCommentController")
-@RequestMapping("/json/recipe/comment")
+@RequestMapping("/json/comment")
 public class RecipeCommentController {
 
   @Resource

@@ -25,9 +25,9 @@
 <c:forEach items="${recipeComments}" var="recipeComment">
   <tr>
     <td>${recipeComment.no}</td>
-    <td><a href='detail?no=${recipeComment.no}'>${recipeComment.content}</a></td>
+    <td><a href='detail?no=${recipeComment.no}'>${recipeComment.commentContent}</a></td>
     <td>${recipeComment.member.nickname}</td>
-    <td>${recipeComment.createdDate}</td>
+    <td>${recipeComment.commentCreatedDate}</td>
   </tr>
 </c:forEach>
 </table>

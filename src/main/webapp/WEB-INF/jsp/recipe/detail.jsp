@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="chop.domain.Recipe"%>
+<%@ page import="chop.domain.RecipeComment"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,44 +28,18 @@
             <button>변경</button>
             <a href='delete?no=${recipe.no}'>삭제</a>
     </form>
-</div>
-
-
-
-<div id='comment'>
-<table class='table table-hover'>
-<h2>댓글</h2>
-${recipe.member.nickname}
-       <textarea name='content' rows='5' cols='50'>댓글입력</textarea>
-       <div class="form-group">
-    <label for="exampleFormControlTextarea1">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-       <button href='http://localhost:8888/app/recipe/comment/form'>등록</button><br>
-<tr>
-  <th>댓글번호</th>
-  <th>내용</th>
-  <th>작성자</th>
-  <th>작성일</th>
-</tr>
-
-  </tr>
-</table>
-</div>
-
-<div>
+    
+   <div>
+   <%@ include file="../comment/list.jsp" %>
 <c:forEach items="${recipes}" var="recipe">
   <tr>
-    <td>${recipe.no}</td>
-    <td><a href='detail?no=${recipe.no}'>${recipe.content}</a></td>
-    <td>${recipe.member.nickname}작성자?</td>
-    <td>${recipe.createdDate}</td>
-    
+    <td>${recipe.no}1</td>
+    <td><a href='detail?no=${recipe.no}'>${recipe.commentContent}2</a></td>
+    <td>${recipe.nickname}3</td>
+    <td>${recipe.commentCreatedDate}4</td>
   </tr>
 </c:forEach>
-${recipe.member.nickname}
-</div>
-        
+    </div>
 </body>
 
 </html>
