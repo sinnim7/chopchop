@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.chopchop.dao.CommentDao">
+
+   <resultMap type="Comment" id="CommentMap">
+    <id column="comment_id"         property="no"/>
+    <id column="recipe_id"         property="recipeNo"/>
+    <id column="member_id"         property="memberNo"/>
+    <result column="content"   property="content"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="nickname"   property="writerName"/>
+  </resultMap>
+ 
+
+
+
+<select id="findAll" resultMap="CommentMap">
+  select
+    m.nickname,
+    rc.comment_id,
+    rc.recipe_id,
+    rc.member_id,
+    rc.content,
+    rc.created_date
+  from recipe_comment as rc
+     join member as m on rc.member_id = m.member_id
+  order by comment_id
+  </select>
+
+
+
+
+
+ 
+  <select id="findBy" parameterType="int" resultMap="CommentMap">
+    select * from recipe_Comment
+    where comment_id=#{haha}
+  </select>
+ 
+ 
+  <insert id="insert" parameterType="Comment"
+  useGeneratedKeys="true"
+          keyColumn="comment_id"
+          keyProperty="no">
+    insert into recipe_comment(content, recipe_id, member_id, created_date)
+    values(#{content}, #{recipeNo}, #{memberNo}, #{createdDate})
+  </insert>
+ 
+ 
+  <update id="update" parameterType="Comment">
+    update recipe_comment set
+     content=#{content}
+    where comment_id=#{no}
+  </update>
+ 
+  <delete id="delete" parameterType="int">
+     delete from recipe_comment
+   where comment_id=#{value}
+   
+  </delete>
+  </mapper>
+  
