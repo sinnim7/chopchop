@@ -55,6 +55,11 @@
 </c:forEach>
 </div>
 
+<div>
+
+<%-- <c:out value="${Recipe.RecipeComment.content}"/> --%>
+
+</div>
 
 
        

@@ -48,8 +48,7 @@ public class RecipeCommentController {
   
    
   @PostMapping("update")
-  public String update(RecipeComment recipeComment) 
-      throws Exception {
+  public String update(RecipeComment recipeComment)  throws Exception {
     recipeCommentService.update(recipeComment);
     return "redirect:list";
   }

@@ -55,17 +55,23 @@ public class RecipeController {
   @GetMapping("detail")
   public void detail(Model model, int no) throws Exception {
     Recipe recipe = recipeService.get(no);
+    model.addAttribute("recipe", recipe);
+    System.out.println("---------------------------------내용출력------");
+    System.out.println(recipe.toString());
+    System.out.println("---------------------------------내용출력------");
     //System.out.println("---------------------------------내용출력------");
     List<RecipeComment> comments = recipe.getComments();
+    System.out.println("---------------------------------내용출력------");
+    for (RecipeComment rc : comments) 
+    { System.out.println(rc.getContent()); }
+    System.out.println("---------------------------------내용출력------");
     /*
-     * for (RecipeComment rc : comments) { System.out.println(rc.getContent()); }
-     */
-    /*
+     * 
      * RecipeComment recipeComment = recipeCommentService.get(no);
      * System.out.println("---------------------------------------");
      * System.out.println(recipeComment.toString());
      */
-    model.addAttribute("recipe", recipe);
+    
     //model.addAttribute("recipeComments", comments);
     System.out.println("RecipeController4");
   }

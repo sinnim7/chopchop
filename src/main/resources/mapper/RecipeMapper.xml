@@ -35,7 +35,7 @@
      <id column="comment_id"         property="no"/>
     <result column="recipe_id"         property="recipeNo"/>
     <result column="member_id"         property="memberNo"/>
-    <result column="content"   property="content"/>
+    <result column="content"   property="content" />
     <result column="created_date" property="createdDate"/>
     </collection>
     <!-- <association property="member" javaType="Member">
@@ -45,31 +45,15 @@
     
   </resultMap>
 
-  
-  
-  
-  
-  
-  <select id="findAll" resultMap="RecipeMap">
-  
-  select 
-    recipe_id,
-    title,
-    thumbnail
-  from recipe 
-  order by recipe_id
-  </select>
-  
-  
-  
-  
-  
-<sql id="where1">
+  <sql id="where1">
     where recipe_id=#{no}
   </sql>
-
-<!-- 
+  
+  
+  
+  
   <select id="findAll" resultMap="RecipeMap">
+  
   select 
     recipe_id,
     title,
@@ -77,7 +61,9 @@
   from recipe 
   order by recipe_id
   </select>
-   -->
+  
+  
+  
   
   
   <insert id="insert" parameterType="Recipe"
@@ -88,31 +74,22 @@
     values(#{title}, #{content}, #{category}, #{otherInfo}, #{thumbnail}, #{tag}, #{memberNo},now(), #{viewCount}) 
   </insert>
   
-   <!-- <select id="findWithRecipe" parameterType="int" resultMap="RecipeWithComment">
-    select
-      r.recipe_id,
-      r.member_id,
-      r.title,
-      r.created_date,
-      r.view_count,
-      r.content rc,
-      r.thumbnail,
-      r.category,
-      r.tag,
-      r.scrap,
-      r.other_info,
-      rc.comment_id,
-      rc.content,
-      rc.created_date
-    from recipe r
-      left outer join recipe_comment rc on r.recipe_id=rc.recipe_id
-    where 
-      r.recipe_id=#{value}
-  </select> -->
   
   
   <select id="findBy" parameterType="int" resultMap="RecipeMap">
-    select * from recipe
+    select
+    reicpe_id,
+    member_id,
+    title,
+    created_date,
+    view_count,
+    content,
+    thumbnail,
+    category,
+    tag,
+    other_info,
+    scrap
+    from recipe
     where recipe_id=#{value}
   </select>
   
@@ -122,11 +99,19 @@
   resultMap="RecipeWithComment">
   select
       r.recipe_id,
+      r.member_id,
+      r.title,
+      r.view_count,
+      r.thumbnail,
+      r.category,
+      r.tag,
+      r.other_info,
+      r.scrap,
       rc.comment_id,
       rc.content,
       rc.created_date
     from recipe as r
-      join recipe_comment as rc on r.recipe_id=rc.recipe_id
+       left outer join recipe_comment as rc on r.recipe_id=rc.recipe_id
     where 
       r.recipe_id=#{value}
   </select>
@@ -151,7 +136,7 @@
       <if test="otherInfo != null">other_info=#{otherInfo},</if>
       <if test="scrap > 0">scrap=#{scrap}</if>
     </set>
-    <include refid="where1"/>
+    where recipe_id=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
