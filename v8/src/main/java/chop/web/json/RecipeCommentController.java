@@ -1,47 +1,29 @@
 package chop.web.json;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import chop.domain.Recipe;
 import chop.domain.RecipeComment;
 import chop.service.RecipeCommentService;
-import chop.service.RecipeService;
 
 // @RestController
 // => request handler의 리턴 값이 응답 데이터임을 선언한다.
 // => 리턴 값은 내부에 설정된 HttpMessageConverter에 의해 JSON 문자열로 변환되어 보내진다.
 //
-@RestController("json.RecipeController")
-@RequestMapping("/json/recipe")
-public class RecipeController {
+@RestController("json.RecipeCommentController")
+@RequestMapping("/json/recipe/comment")
+public class RecipeCommentController {
 
-  @Resource private RecipeService recipeService;
-  @Resource private RecipeCommentService recipeCommentService;
-  
-  String uploadDir;
-  
-  public RecipeController(ServletContext sc) {
-    uploadDir = sc.getRealPath("/upload/recipe");
-  }
-  
-  @GetMapping("form")
-  public void form() {
-  }
+  @Resource
+  private RecipeCommentService recipeCommentService;
 
   @PostMapping("add")
-  public JsonResult add(Recipe recipe,  MultipartFile file,
-      RecipeComment recipeComment) throws Exception {
+  public JsonResult add(RecipeComment recipeComment) 
+      throws Exception {
     try {
-      recipe.setThumbnail(writeFile(file));
-      recipeService.insert(recipe);
       recipeCommentService.insert(recipeComment);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
@@ -53,9 +35,9 @@ public class RecipeController {
   }
   
   @GetMapping("delete")
-  public JsonResult delete(int no) throws Exception {
+  public JsonResult delete(int no) 
+      throws Exception {
     try {
-      recipeService.delete(no);
       recipeCommentService.delete(no);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
@@ -67,15 +49,13 @@ public class RecipeController {
   }
   
   @GetMapping("detail")
-  public JsonResult detail(int no) throws Exception {
+  public JsonResult detail(int no) 
+      throws Exception {
     try {
-      Recipe recipe = recipeService.get(no);
-      List<RecipeComment> comments = recipe.getComments();
       RecipeComment recipeComment = recipeCommentService.get(no);
-      
       return new JsonResult()
           .setState(JsonResult.SUCCESS)
-          .setResult(recipe);
+          .setResult(recipeComment);
       
     } catch (Exception e) {
       return new JsonResult()
@@ -85,12 +65,13 @@ public class RecipeController {
   }
   
   @GetMapping("list")
-  public JsonResult list() throws Exception {
+  public JsonResult list() 
+      throws Exception {
     try {
-      List<Recipe> recipes = recipeService.list();
+      List<RecipeComment> recipeComments = recipeCommentService.list();
       return new JsonResult()
           .setState(JsonResult.SUCCESS)
-          .setResult(recipes);
+          .setResult(recipeComments);
       
     } catch (Exception e) {
       return new JsonResult()
@@ -100,10 +81,10 @@ public class RecipeController {
   }
   
   @PostMapping("update")
-  public JsonResult update(Recipe recipe, MultipartFile file) throws Exception {
+  public JsonResult update(RecipeComment recipeComment) 
+      throws Exception {
     try {
-      recipe.setThumbnail(writeFile(file));
-      recipeService.update(recipe);
+      recipeCommentService.update(recipeComment);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
     } catch (Exception e) {
@@ -112,15 +93,5 @@ public class RecipeController {
           .setMessage(e.getMessage());
     }
   }
-  
-  private String writeFile(MultipartFile file) throws Exception {
-    if (file.isEmpty())
-      return null;
-    
-    String filename = UUID.randomUUID().toString();
-    file.transferTo(new File(uploadDir + "/" + filename));
-    return filename;
-  }
-  
 
 }

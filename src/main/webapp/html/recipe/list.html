@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>레시피 목록</title>
+<link rel='stylesheet' href='/node_modules/bootstrap/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='/css/style.css'>
+</head>
+<body>
+
+<div id='recipemain'>
+<h1>레시피 목록</h1>
+<a href='form.html'>새 레시피</a><br>
+<table id="list-table" class='table table-hover'>
+<thead>
+<tr>
+  <th>레시피번호</th>
+  <th>제목</th>
+  <th>썸네일</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+
+<script id="t1" type="text/x-handlebars-template">
+{{#each result}}
+<tr>
+<td>{{recipeNo}}</td>
+<td><a href="form.html?no={{recipeNo}}">{{title}}</a></td>
+<td>{{thumbnail}}</td>
+</tr>
+{{/each}}
+</script>
+<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="list.js"></script>
+
+</body>
+</html>
+

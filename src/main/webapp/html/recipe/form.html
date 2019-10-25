@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>레시피 등록폼</title>
+</head>
+<body>
+
+    
+<div id='recipemain'>
+<h1>레시피 등록</h1>
+<form>
+
+<div class="my-view-group">
+  <label for="fiFile">사진</label>
+  <div class="col">
+    <input type="file" id="fiFile">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiRecipeNo">레시피 번호</label>
+  <div class="col">
+    <input type="text" id="fiRecipeNo">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiTitle">레시피명</label>
+  <div class="col">
+    <input type="text" id="fiTitle">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiContent">간단소개</label>
+  <div class="col">
+    <textarea id="fiContent" rows="5"></textarea>
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiCategory">카테고리</label>
+  <div class="col">
+    <input type="text" id="fiCategory">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiOtherInfo">기타정보</label>
+  <div class="col">
+    <input type="text" id="fiOtherInfo">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="staticCreatedDate">작성일</label>
+  <div class="col">
+    <input type="text" readonly id="staticCreatedDate">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="staticViewCount">조회수</label>
+  <div class="col">
+    <input type="text" readonly id="staticViewCount">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiMemberNo">회원번호</label>
+  <div class="col">
+    <input type="text" readonly id="fiMemberNo">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <label for="fiTag">태그</label>
+  <div class="col">
+    <input type="text" readonly id="fiTag">
+  </div>
+</div>
+
+<div class="my-view-group">
+  <div class="col">
+  <button id="btnAdd" type="button" class="my-add-group">등록</button>
+  <button id="btnUpdate" type="button" class="my-view-group">변경</button>
+  <button id="btnDelete" type="button" class="my-view-group">삭제</button>
+  <button id="btnlist" type="button" class="my-view-group">목록</button>
+  </div>
+</div>
+</form>
+</div>
+
+<!-- 
+<form action='add' method='post' enctype='multipart/form-data'>
+ 사진: <input type='file' name='file'><br>
+ 레시피번호
+  레시피명: <input type='text' name='title'><br>
+  간단소개 : <textarea name='content' rows='5' cols='50'></textarea><br>
+  카테고리: <input type='text' name='category'><br>
+  기타정보: <input type='text' name='otherInfo'><br>
+  조회수: <input type='text' name='viewCount'><br>
+ 회원번호: <input type='text' name='memberNo'><br>
+  태그: <input type='text' name='tag'><br>
+  
+  <button>등록</button>
+</form>
+ -->
+
+
+<script>
+"use strict";
+
+var fiFile = document.querySelector('#fiFile'), 
+    fiRecipeNo = document.querySelector('#fiRecipeNo'),
+    fiTitle = document.querySelector('#fiTitle'),
+    fiContent = document.querySelector('#fiContent'),
+    fiCategory = document.querySelector('#fiCategory'),
+    fiOtherInfo = document.querySelector('#fiOtherInfo'),
+    staticViewCount = document.querySelector('#staticViewCount'),
+    fiMemberNo = document.querySelector('#fiMemberNo'),
+    fiTag = document.querySelector('#fiTage'),
+    btnAdd = document.querySelector('#btnAdd'),
+    btnUpdate = document.querySelector('#btnUpdate'),
+    btnDelete = document.querySelector('#btnDelete'),
+    btnList = document.querySelector('#btnList');
+    
+var i = location.href.indexOf('?');
+if (i != -1) {
+  var str = location.href.substring(i + 1).split('=');
+  if (str[0] == 'recipeNo') {
+    if (!isNaN(parseInt(str[1])))
+      var no = parseInt(str[1]);
+  }
+}
+    
+
+btnList.onclick = () => {
+	  location.href = 'list.html';
+};
+
+if (recipeNo == undefined) {
+	var el = document.querySelectorAll('.my-view-group')
+	for (var e of el) {
+		e.style['display'] = 'none';
+	}
+	
+	btnAdd.onclick = () => {
+		doAdd();
+	};
+	
+} else {
+	var el = document.querySelectorAll('.my-view-group')
+	for (var e of el){
+		e.style['display'] = 'none';
+	}
+	doDetail();
+	
+	btnUpdate.onclick = () => {
+		doUpdate();
+	}
+	
+	btnDelete.onclick = () => {
+		doDelte();
+	}
+}
+
+function doAdd() {
+	console.log("doAdd")
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState < 4)
+			return;
+		
+		if (xhr.status !=200) {
+			alert("서버 요청 중 오류 발생!");
+			return;
+		}
+
+		var data = JSON.parse(xhr.responseText);
+		console.log(data.state);
+		
+		location.href = "list.html";
+	};
+	
+	xhr.open("POST", "/app/json/recipe/add", true);
+	xhr.setRequestHeader(
+			"Content-Type",
+			"application/x-www-form-urlencoded");
+	xhr.send(
+			"file=" + encodedURIComponent(fiFile.value) +
+			"&recipeNo=" + encodedURIComponent(fiRecipeNo.value) +
+			"&title=" + encodedURIComponent(fiTitle.value) +
+			"&content=" + encodeURIComponent(fiContent.value) +
+			"&category=" + encodeURIComponent(fiCategory.value) +
+			"&otherInfo=" + encodeURIComponent(fiOtherInfo.value) +
+			"&memberNo=" + encodeURIComponent(fiMemberNo.value) +
+			"&tag=" + encodeURIComponent(fiTag.value));
+}
+
+function doDetail() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState < 4)
+		   return;
+		    
+	  if (xhr.status != 200) {
+		   alert("서버 요청 중 오류 발생!");
+		   return;
+	  }
+	  
+	  var data = JSON.parse(xhr.responseText);
+	  fiTitle.value = data.result.recipeNo;
+	  fiContent.value = data.result.content;
+	  staticViewCount.value = data.result.viewCount;
+	  staticCreatedDate.value = data.result.createdDate;
+	};
+	xhr.open("GET", "/app/json/recipe/detail?no=" + no, true);
+	xhr.send();
+}
+
+function doUpdate() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState < 4)
+			return;
+		
+		if (xhr.status !=200) {
+			alert("서버 요청 중 오류 발생");
+			return;
+		}
+		
+		var data = JSON.parse(xhr.responseText);
+		console.log(data.state);
+		
+		location.href = "list.html";
+	};
+	
+	xhr.open("POST", "/app/json/recipe/update", true);
+	xhr.setREquestHeader(
+			"Content-Type",
+			"application/x-www-form-urlencoded");
+	xhr.send(
+			"title=" + encodedURIComponent(fiTitle.value) +
+			"&content=" + encodedURIComponent(fiContent.value) +
+			"&viewCount=" + fiViewCount.value +
+			"&createdDate=" + fiCreatedDate.value +
+			"&otherInfo=" + encodedURIComponent(fiOhterInfo.value) +
+			"&recipeNo=" + fiRecipeNo.value +
+			"&tag=" + encodedURIComponent(fiTag.value));
+}
+
+function doDelete() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState < 4)
+			return;
+		
+		if (xhr.status !=200) {
+			alert("서버 요청 중 오류 발생!");
+			return;
+		}
+		
+		var data = JSON.parse(xhr.responseTest);
+		console.log(data.state);
+		
+		location.href = "list.html";
+	};
+	
+	xhr.open("GET", "/app/json/recipe/delete?no=" + no, true);
+	xhr.send();
+}
+
+</script>
+
+</body>
+</html>
