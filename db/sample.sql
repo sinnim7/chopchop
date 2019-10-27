@@ -1,10 +1,55 @@
 
+-- 기존찹톡db 삭제
+mysql -u root -p
+1111
+drop database chopchopdb
+
+-- chopDB 생성
+
+create database chopDB
+character set utf8
+collate utf8_general_ci;
+
+exit
+
+-- chopchop 에 chopDB 사용 권한 주기
+mysql -u root -p
+1111
+GRANT ALL ON chopdb.* TO 'chopchop'@'localhost';
+exit
+
+-- chopDB 이용
+mysql -u chopchop -p
+1111
+show databases;
+use chopdb
+
+
+
 -- 회원 데이터 입력
 
-insert into member(member_id, password, email, photo, nickname, tel, post_no, base_address, detail_address, grade)
-value(1, '1111', 'a@email.com', 'a.jpg', 'aaaa', '1111-1111', '11111', 'seoul', 'gangnam', 1);
-insert into member(member_id, password, email, photo, nickname, tel, post_no, base_address, detail_address, grade)
-value(2, '2222', 'b@email.com', 'b.jpg', 'bbbb', '2222-2222', '22222', 'seoul', 'gangnam', 1);
+/*
+ * 임시 멤버 만드는 sql문
+ */
+insert into 
+  member (email, password, nickname, tel)
+value ('test1@test.com', password(1111), 'test1', '1111-1111');
+
+insert into 
+  member (email, password, nickname, tel)
+value ('test2@test.com', password(2222), 'test2', '2222-2222');
+
+insert into 
+  member (email, password, nickname, tel)
+value ('test3@test.com', password(3333), 'test3', '3333-3333');
+
+insert into 
+  member (email, password, nickname, tel)
+value ('test4@test.com', password(4444), 'test4', '4444-4444');
+
+insert into 
+  member (email, password, nickname, tel)
+value ('test1=@test.com', password(5555), 'test5', '5555-5555');
 
 -- 레시피 데이터 입력
 

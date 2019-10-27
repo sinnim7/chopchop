@@ -3,6 +3,7 @@ package chop.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 import chop.dao.RecipeCommentDao;
 import chop.domain.RecipeComment;
 import chop.service.RecipeCommentService;
@@ -10,6 +11,7 @@ import chop.service.RecipeCommentService;
 // RecipeCommentService 기본 구현체 
 //
 @Service
+@RequestMapping("/comment")
 public class DefaultRecipeCommentService implements RecipeCommentService {
 
   @Resource
@@ -47,5 +49,5 @@ public class DefaultRecipeCommentService implements RecipeCommentService {
   public void update(RecipeComment recipeComment) throws Exception {
     recipeCommentDao.update(recipeComment);
   }
-  
+
 }

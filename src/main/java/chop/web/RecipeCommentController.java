@@ -11,7 +11,7 @@ import chop.domain.RecipeComment;
 import chop.service.RecipeCommentService;
 
 @Controller
-@RequestMapping("/recipe/comment")
+@RequestMapping("/comment")
 public class RecipeCommentController {
 
   @Resource
@@ -31,13 +31,15 @@ public class RecipeCommentController {
   @PostMapping("add")
   public String add(RecipeComment recipeComment) throws Exception {
     recipeCommentService.insert(recipeComment);
-    return "redirect:list";
+    System.out.println(recipeComment.getCommentNo());
+    return "redirect:../recipe/detail?no=" + recipeComment.getRecipeNo();
   }
   
   @GetMapping("delete")
   public String delete(int no) throws Exception {
+    RecipeComment recipeComment = recipeCommentService.get(no); 
     recipeCommentService.delete(no);
-    return "redirect:list";
+    return "redirect:../recipe/detail?no=" + recipeComment.getRecipeNo();
   }
   
   @GetMapping("detail")
@@ -51,7 +53,7 @@ public class RecipeCommentController {
   public String update(RecipeComment recipeComment)  throws Exception {
 
     recipeCommentService.update(recipeComment);
-    return "redirect:list";
+    return "redirect:../recipe/detail?no=" + recipeComment.getRecipeNo();
   }
   
   

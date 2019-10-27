@@ -17,7 +17,7 @@
   </resultMap>
   
   
-  
+ 
   
   
 
@@ -58,12 +58,15 @@
   
   
   
-  
-  
   <delete id="delete" parameterType="int">
      delete from recipe_comment 
    where comment_id=#{value}
    
+  </delete>
+  
+  <delete id="deleteAll" parameterType="int">
+    delete from recipe_comment
+    where comment_id=#{value}
   </delete>
   
 </mapper>

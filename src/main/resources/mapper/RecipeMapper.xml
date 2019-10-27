@@ -35,7 +35,7 @@
      <id column="comment_id"         property="commentNo"/>
     <result column="recipe_id"         property="recipeNo"/>
     <result column="member_id"         property="memberNo"/>
-    <result column="content"   property="rcontent" />
+    <result column="r"   property="rcontent" />
     <result column="created_date" property="createdDate"/>
     </collection>
     <!-- <association property="member" javaType="Member">
@@ -77,18 +77,7 @@
   
   
   <select id="findBy" parameterType="int" resultMap="RecipeMap">
-    select
-    reicpe_id,
-    member_id,
-    title,
-    created_date,
-    view_count,
-    content,
-    thumbnail,
-    category,
-    tag,
-    other_info,
-    scrap
+    select * 
     from recipe
     where recipe_id=#{value}
   </select>
@@ -109,7 +98,7 @@
       r.other_info,
       r.scrap,
       rc.comment_id,
-      rc.content,
+      rc.content r,
       rc.created_date
     from recipe as r
        left outer join recipe_comment as rc on r.recipe_id=rc.recipe_id
@@ -140,10 +129,11 @@
     where recipe_id=#{recipeNo}
   </update>
   
-  <delete id="delete" parameterType="int">
-     delete from recipe 
-   where recipe_id=#{value}
+   <delete id="delete" parameterType="int">
+    delete from recipe
+    where recipe_id=#{no}
   </delete>
+  
   
   
   

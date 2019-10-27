@@ -9,6 +9,7 @@ public interface RecipeCommentDao {
   List<RecipeComment> findAll() throws Exception;
   int update(RecipeComment recipecomment) throws Exception;
   int delete(int no) throws Exception;
+  int deleteAll(int no) throws Exception;
   RecipeComment findBy(int no) throws Exception;
 }
 

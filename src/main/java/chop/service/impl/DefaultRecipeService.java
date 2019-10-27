@@ -3,6 +3,7 @@ package chop.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import chop.dao.RecipeCommentDao;
 import chop.dao.RecipeDao;
 import chop.domain.Recipe;
@@ -24,11 +25,16 @@ public class DefaultRecipeService implements RecipeService {
     recipeDao.insert(recipe);
   }
   
+  @Transactional
   @Override
   public void delete(int no) throws Exception {
-    if (recipeDao.delete(no) == 0) {
+    if (recipeDao.findBy(no) == null) {
       throw new Exception("해당 데이터가 없습니다.");
     }
+    recipeCommentDao.delete(no);
+    recipeDao.delete(no);
+    
+    
   }
   
 

@@ -36,19 +36,16 @@ public class RecipeController {
   }
   
   @PostMapping("add")
-  public String add(Recipe recipe, MultipartFile file,
-      RecipeComment recipeComment) throws Exception {
+  public String add(Recipe recipe, MultipartFile file) throws Exception {
     
     recipe.setThumbnail(writeFile(file));
     recipeService.insert(recipe);
-    recipeCommentService.insert(recipeComment);
     return "redirect:list";
   }
   
   @GetMapping("delete")
   public String delete(int no) throws Exception {
     recipeService.delete(no);
-    recipeCommentService.delete(no);
     return "redirect:list";
   }
   

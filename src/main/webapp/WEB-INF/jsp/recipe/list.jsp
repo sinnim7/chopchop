@@ -23,9 +23,9 @@
 </tr>
 <c:forEach items="${recipes}" var="recipe">
   <tr>
-    <td>${recipe.no}</td>
-    <td><a href='detail?no=${recipe.no}'>${recipe.title}</a></td>
-    <td><a href='detail?no=${recipe.no}'><img src='/upload/recipe/${recipe.thumbnail}' class='photo2' ></a><br></td>
+    <td>${recipe.recipeNo}</td>
+    <td><a href='detail?no=${recipe.recipeNo}'>${recipe.title}</a></td>
+    <td><a href='detail?no=${recipe.recipeNo}'><img src='/upload/recipe/${recipe.thumbnail}' class='photo2' ></a><br></td>
   </tr>
 </c:forEach>
 </table>

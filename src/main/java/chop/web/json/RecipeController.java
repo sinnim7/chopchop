@@ -37,12 +37,10 @@ public class RecipeController {
   }
 
   @PostMapping("add")
-  public JsonResult add(Recipe recipe,  MultipartFile file,
-      RecipeComment recipeComment) throws Exception {
+  public JsonResult add(Recipe recipe,  MultipartFile file) throws Exception {
     try {
       recipe.setThumbnail(writeFile(file));
       recipeService.insert(recipe);
-      recipeCommentService.insert(recipeComment);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
     } catch (Exception e) {
@@ -71,7 +69,6 @@ public class RecipeController {
     try {
       Recipe recipe = recipeService.get(no);
       List<RecipeComment> comments = recipe.getComments();
-      RecipeComment recipeComment = recipeCommentService.get(no);
       
       return new JsonResult()
           .setState(JsonResult.SUCCESS)
